@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-	has_one :profile
-	has_many :messages
-	has_many :services through: :service_user
+	has_one  :profile, dependent: :destroy
+	has_many :messages, dependent: :destroy
+	# has_many :services through: :service_user
 end
