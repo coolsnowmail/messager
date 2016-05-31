@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160530160454) do
+ActiveRecord::Schema.define(version: 20160531172225) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,22 +48,22 @@ ActiveRecord::Schema.define(version: 20160530160454) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "service_users", force: :cascade do |t|
+    t.jsonb    "auth_date"
+    t.integer  "service_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "service_users", ["service_id"], name: "index_service_users_on_service_id", using: :btree
+  add_index "service_users", ["user_id"], name: "index_service_users_on_user_id", using: :btree
+
   create_table "services", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-  create_table "servise_users", force: :cascade do |t|
-    t.jsonb    "auth_date"
-    t.integer  "user_id"
-    t.integer  "service_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "servise_users", ["service_id"], name: "index_servise_users_on_service_id", using: :btree
-  add_index "servise_users", ["user_id"], name: "index_servise_users_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
