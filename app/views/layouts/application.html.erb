@@ -5,8 +5,6 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
-  <script src="http://code.jquery.com/jquery-latest.js"></script>
-  <script src="js/bootstrap.min.js"></script>
 </head>
 <body>
 	
@@ -19,11 +17,11 @@
             </div>            
               <ul class='nav navbar-nav navbar-right '>
                 <% if user_signed_in? %>
-                  <li><a><%=@user.email%></a></li>
-                  <li> <%=link_to 'exit', destroy_user_session_path, method: :delete %></li>
+                  <li> <%=link_to @user.email, edit_user_registration_path %> </li>
+                  <li> <%=link_to t("exit"), destroy_user_session_path, method: :delete %></li>
                 <% else %>
-                  <li> <%= link_to 'sing up', new_user_registration_path %> </li>
-                  <li> <%= link_to 'log in', user_session_path %> </li>
+                  <li> <%= link_to t("sign_up"), new_user_registration_path %> </li>
+                  <li> <%= link_to t("log_in"), user_session_path %> </li>
                 <% end %>
               </ul>            
           </div>      

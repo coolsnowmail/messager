@@ -1,0 +1,8 @@
+div.container 
+  div.row
+    div.col-lg-2.col-md-2.col-sm-2.col-xs-2
+    div.col-lg-8.col-md-8.col-sm-8.col-xs-8
+      h5.text-info.text-center = t("chat")
+      div.well#border
+    div.col-lg-2.col-md-2.col-sm-2.col-xs-2
+      h5.blockquote-reverse.label.label-success#sender_label #{t("sender.name")}: #{@sender}

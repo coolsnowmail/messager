@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user! 
   def index
-  	@user = User.find(1)
+  	@user = current_user
   end
 end
