@@ -1,0 +1,21 @@
+div.container
+  div.row
+  	div.col-lg-2.col-md-2.col-sm-2.col-xs-2
+    div.col-lg-8.col-md-8.col-sm-8.col-xs-8 
+      div.tabbable.tabs-left
+        ul.nav.nav-tabs
+          li.active
+            a href="#tab1" data-toggle="tab" = t("service1")
+          li
+            a href="#tab2" data-toggle="tab" = t("service2")
+          li
+            a href="#tab3" data-toggle="tab" = t("service3")
+        div.tab-content
+          div.tab-pane.active#tab1"
+            p = t("service1_settings")
+          div.tab-pane#tab2
+            p = t("service2_settings")
+          div.tab-pane#tab3
+            p = t("service3_settings")
+    div.col-lg-2.col-md-2.col-sm-2.col-xs-2
+    
