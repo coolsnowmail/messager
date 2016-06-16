@@ -5,4 +5,4 @@ div.container
       h5.text-info.text-center = t("chat")
       div.well#border
     div.col-lg-2.col-md-2.col-sm-2.col-xs-2
-      h5.blockquote-reverse.label.label-success#sender_label #{t("sender.name")}: #{@sender}
+      h5.blockquote-reverse.label.label-success#sender_label = t('sender.name', sender: @sender)

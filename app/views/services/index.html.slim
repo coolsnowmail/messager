@@ -5,11 +5,11 @@ div.container
       div.tabbable.tabs-left
         ul.nav.nav-tabs
           li.active
-            a href="#tab1" data-toggle="tab" #{t("service1")}
+            a href="#tab1" data-toggle="tab" = t("service1")
           li
-            a href="#tab2" data-toggle="tab" #{t("service2")}
+            a href="#tab2" data-toggle="tab" = t("service2")
           li
-            a href="#tab3" data-toggle="tab" #{t("service3")}
+            a href="#tab3" data-toggle="tab" = t("service3")
         div.tab-content
           div.tab-pane.active#tab1"
             p = t("service1_settings")
