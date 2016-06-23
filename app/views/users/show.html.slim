@@ -5,5 +5,10 @@ div.container
       h5.text-center = t("contacts") 
   	div.col-lg-10.col-md-10.col-sm-10.col-xs-10
       h5.text-info.text-center = t("chat")
-      div.well#border
-  
+      div.well#border 
+
+        = form_for @message do |f|
+          =f.text_field :text
+          =f.submit "create"
+        
+        

@@ -1,0 +1,8 @@
+= form_for @sender do |f|
+  div.center
+    = f.label :name 
+    br
+    = f.text_field :name
+
+    span.btn
+      = f.submit "start chat"

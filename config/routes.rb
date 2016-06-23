@@ -17,6 +17,8 @@ Rails.application.routes.draw do
 
     resources :senders
 
+    resources :users
+
     resources :messages
 
     #resources :messages, path: '/senders/:id/messages' 

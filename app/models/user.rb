@@ -9,4 +9,12 @@ class User < ActiveRecord::Base
   has_many :service_users
   has_many :services, through: :service_users
 
+  # def test3
+  #   puts "test"  	
+  # end
+
+  # def self.test2
+  # 	puts "test2"  	
+  # end
+
 end
