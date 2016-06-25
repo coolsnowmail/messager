@@ -6,15 +6,7 @@ class User < ActiveRecord::Base
 
   has_one  :profile, dependent: :destroy
   has_many :messages, dependent: :destroy
+  has_many :senders, dependent: :destroy
   has_many :service_users
   has_many :services, through: :service_users
-
-  # def test3
-  #   puts "test"  	
-  # end
-
-  # def self.test2
-  # 	puts "test2"  	
-  # end
-
 end

@@ -1,14 +1,45 @@
 div.container
   div.row
-  	div.col-lg-2.col-md-2.col-sm-2.col-xs-2
-      h5.text-center = link_to t("services"), services_path
-      h5.text-center = t("contacts") 
-  	div.col-lg-10.col-md-10.col-sm-10.col-xs-10
-      h5.text-info.text-center = t("chat")
-      div.well#border 
+    div.col-lg-2.col-md-2.col-sm-2.col-xs-2
+      div.btn-group
+        button type="button" data-toggle="dropdown" class="btn btn-primary dropdown-toggle"
+         span.button_of_sender = t("list_of_senders")
+         span class="caret"
+        ul.dropdown-menu
+          - @senders.each do |s|
+            li.text-center = link_to s.name, user_path(current_user, sender_id: s.id)
+      div.btn-group
+        button type="button" data-toggle="dropdown" class="btn btn-primary dropdown-toggle"
+         span.button_of_sender = t("vk")
+         span class="caret"
+        ul.dropdown-menu
+          - if @user.vk_user_id == nil
+            li.text-center = link_to "Connect", @url_vk, :class=>"btn btn-success"
+          - else
+            li.text-center ваш id: #{@user.vk_user_id}
+            li.text-center. = link_to "disconnect", disconnect_vk_path, data: { confirm: "Вы хотите утключить вашу страницу Вконтакте от приложения! Вы уверены?" }, :class=>"btn btn-danger"
+    div.col-lg-10.col-md-10.col-sm-10.col-xs-10
+      -if @users_and_senders_messages
+        h5.text-info.text-center = t("chat")
+        div#border
+          - @users_and_senders_messages.each do |m|
+            div.sms_block_contaner
+              div class="#{m.incoming ? "outcoming_block" : "incoming_block"}" = m.text
 
-        = form_for @message do |f|
-          =f.text_field :text
-          =f.submit "create"
-        
-        
+      -if @users_and_senders_messages
+        div.well
+          = form_for @message_to_the_sender do |f|
+            = f.text_field :text, class: "form-control"
+            = f.hidden_field :user_id
+            = f.hidden_field :sender_id
+            = f.hidden_field :incoming, :value => true
+
+            = f.submit t("send"), class: "btn btn-primary pull-right"
+
+
+
+
+
+
+
+

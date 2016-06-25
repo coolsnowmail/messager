@@ -2,35 +2,36 @@
 <html>
 <head>
   <title>Messager</title>
+  <%= favicon_link_tag 'logo.png' %>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-	
+
     <div class="container">
       <div class="row">
         <div class="navbar navbar-inverse">
           <div class="container">
             <div class="navbar-header">
-              <a class="navbar-brand" href="#">Messager</a>              
-            </div>            
+              <a class="navbar-brand" href="#">Messager</a>
+            </div>
               <ul class='nav navbar-nav navbar-right '>
                 <% if user_signed_in? %>
-                  <li> <%=link_to @user.email, edit_user_registration_path %> </li>
+                  <li> <%=link_to current_user.email, edit_user_registration_path %> </li>
                   <li> <%=link_to t("exit"), destroy_user_session_path, method: :delete %></li>
                 <% else %>
                   <li> <%= link_to t("sign_up"), new_user_registration_path %> </li>
                   <li> <%= link_to t("log_in"), user_session_path %> </li>
                 <% end %>
-              </ul>            
-          </div>      
+              </ul>
+          </div>
         </div>
       </div>
     </div>
-  
 
-  
+
+
 
 <%= yield %>
 

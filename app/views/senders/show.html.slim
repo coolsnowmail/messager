@@ -1,13 +1,27 @@
-div.container 
+div.container
   div.row
     div.col-lg-2.col-md-2.col-sm-2.col-xs-2
+      =@p
     div.col-lg-8.col-md-8.col-sm-8.col-xs-8
       h5.text-info.text-center = t("chat")
-      div.well#border
-        = @sender.messages.each do |d|
-          p = d.text
-        =form_for @message do |f|
-          =f.text_field :text
-          =f.submit
+      div#border
+        - @sender.messages.each do |m|
+          div.sms_block_contaner
+            div class="#{m.incoming ? "outcoming_block" : "incoming_block" }" = m.text
+
+      div.well = form_for @message do |f|
+          h5 #{t("adress")} #{@user.email}
+          =f.hidden_field :user_id, :value => @user.id
+          h5 = t("message")
+          =f.text_field :text, class: "form-control"
+          =f.hidden_field :sender_id
+          =f.hidden_field :incoming, :value => false
+
+          =f.submit t("send"), class: "btn btn-primary pull-right"
     div.col-lg-2.col-md-2.col-sm-2.col-xs-2
-      h5.blockquote-reverse.label.label-success#sender_label = t('sender.name', sender: @sender.name)
+      div#sender_name_container
+        p.text-uppercase.text-left#sender_name_text_color = t('sender.name', sender: @sender.name)
+      = link_to 'Выйти из беседы', @sender, method: :delete, data: {confirm: 'Вы точно хотите выйти из беседы? Все сообщения будут удалены, а Ваше имя забыто!'}, :class => "btn btn-danger"
+
+
+

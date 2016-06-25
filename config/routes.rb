@@ -1,11 +1,35 @@
 Rails.application.routes.draw do
-  devise_for :users
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'users#index'
 
+  devise_for :users
+
+  authenticated :user do
+    root to: "users#show", :as => "profile"
+  end
+
+  unauthenticated do
+    root to: "senders#new", :as => "unauthenticated"
+  end
+
+  # resources :services do
+  #   member do
+  #     get 'callbacks' => 'services#callbacks'
+  #   end
+  # end
+  get 'callbacks', to: 'services#callbacks'
+  get 'disconnect_vk', to: 'services#disconnect_vk'
+
+  resources :senders
+
+  resources :users
+
+  #get '/services/callbacks', to: 'services#сallbacks'
+
+  resources :messages
   # Example of regular route:
     # get 'users' => 'devise/registrations#new'
 
@@ -13,17 +37,9 @@ Rails.application.routes.draw do
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
-    resources :services
+  #resources :messages, path: '/senders/:id/messages'
 
-    resources :senders
 
-    resources :users
-
-    resources :messages
-
-    #resources :messages, path: '/senders/:id/messages' 
-
-    
 
   # Example resource route with options:
   #   resources :products do

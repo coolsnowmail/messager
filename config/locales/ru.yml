@@ -1,5 +1,18 @@
 ru:
-  
+  vk: "Вконтакте"
+
+  list_of_senders: "Адресанты"
+
+  adress: "Адресат:"
+
+  message: "Сообщение:"
+
+  send: "отправить"
+
+  name: "Имя:"
+
+  start_chat: "Начать диалог"
+
   back: "Назад"
 
   сancel_my_account: "Удалить аккаунт"
@@ -24,15 +37,15 @@ ru:
     name: "Имя: %{sender}"
 
   service1: "Сервис 1"
-  
+
   service1_settings: "Настройка сервиса 1"
 
   service2: "Сервис 2"
-  
+
   service2_settings: "Настройка сервиса 2"
 
   service3: "Сервис 3"
-  
+
   service3_settings: "Настройка сервиса 3"
 
   resend_confirmation_instructions: "Выслать инструкции для подтверждения еще раз"
