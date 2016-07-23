@@ -3,5 +3,5 @@ class Sender < ActiveRecord::Base
   belongs_to :user
   validates :name, presence: true
   validates :user_id, presence: true
-  validates :name, uniqueness: { scope: :user_id, message: "Данное имя уже занято для этого пользователя" }
+  validates :name, uniqueness: { scope: :user_id, message: I18n.t("notice_that_this_sender_name_have_been_acupate") }
 end

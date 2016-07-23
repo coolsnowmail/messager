@@ -1,63 +1,43 @@
 ru:
+  your_vk_id: "ваш id"
+  confirm_of_vk_disconnection: "Вы хотите утключить вашу страницу Вконтакте от приложения! Вы уверены?"
+  Disconnect: "Отключить"
+  Connect: "Подключить"
+  notice_that_dialog_will_be_destroy: "Вы точно хотите выйти из беседы? Все сообщения будут удалены, а Ваше имя забыто!"
+  get_out_of_dialog: "Выйти из беседы"
+  Messager: "Messager"
+  notice_that_this_sender_name_have_been_acupate: "Данное имя уже занято для этого пользователя"
   vk: "Вконтакте"
-
+  destroy_dialog_of_sender: 'Если вы войдете в систему то потеряйте этот диалог. Продолжить?'
   list_of_senders: "Адресанты"
-
   adress: "Адресат:"
-
   message: "Сообщение:"
-
   send: "отправить"
-
   name: "Имя:"
-
   start_chat: "Начать диалог"
-
   back: "Назад"
-
   сancel_my_account: "Удалить аккаунт"
-
   update_user_button: "Внести изменения"
-
   edit: "Редактировать"
-
   characters_minimum: "символов минимум"
-
   remember_me: "Запомнить пользователя"
-
   exit: "Выход"
-
   sign_up: "Регистрация"
-
   log_in: "Войти"
-
   chat: "Диалог"
-
   sender:
     name: "Имя: %{sender}"
-
   service1: "Сервис 1"
-
   service1_settings: "Настройка сервиса 1"
-
   service2: "Сервис 2"
-
   service2_settings: "Настройка сервиса 2"
-
   service3: "Сервис 3"
-
   service3_settings: "Настройка сервиса 3"
-
   resend_confirmation_instructions: "Выслать инструкции для подтверждения еще раз"
-
   do_u_forgot_ur_password: "Забыли пароль?"
-
   send_reset_password_instructions: "Сменить пароль"
-
   contacts: "Список контактов"
-
   services: "Список сервисов"
-
   activerecord:
     models:
       user: "Пользователь"

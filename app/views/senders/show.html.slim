@@ -21,7 +21,7 @@ div.container
     div.col-lg-2.col-md-2.col-sm-2.col-xs-2
       div#sender_name_container
         p.text-uppercase.text-left#sender_name_text_color = t('sender.name', sender: @sender.name)
-      = link_to 'Выйти из беседы', @sender, method: :delete, data: {confirm: 'Вы точно хотите выйти из беседы? Все сообщения будут удалены, а Ваше имя забыто!'}, :class => "btn btn-danger"
+      = link_to t("get_out_of_dialog"), @sender, method: :delete, data: {confirm: t("notice_that_dialog_will_be_destroy")}, :class => "btn btn-danger"
 
 
 

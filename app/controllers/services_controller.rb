@@ -7,9 +7,8 @@ class ServicesController < ApplicationController
 
   def disconnect_vk
     user = current_user
-    user.vk_user_id = nil
-    user.save
-    redirect_to user_path(current_user)
+    user.update_attributes(vk_user_id: nil)
+    redirect_to user_path(user.id)
   end
 end
 

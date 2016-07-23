@@ -14,7 +14,7 @@
         <div class="navbar navbar-inverse">
           <div class="container">
             <div class="navbar-header">
-              <a class="navbar-brand" href="#">Messager</a>
+              <a class="navbar-brand" href="#"> <%= t("Messager") %> </a>
             </div>
               <ul class='nav navbar-nav navbar-right '>
                 <% if user_signed_in? %>
@@ -22,7 +22,11 @@
                   <li> <%=link_to t("exit"), destroy_user_session_path, method: :delete %></li>
                 <% else %>
                   <li> <%= link_to t("sign_up"), new_user_registration_path %> </li>
-                  <li> <%= link_to t("log_in"), user_session_path %> </li>
+                  <% if session[:sender_id] %>
+                    <li> <%= link_to t("log_in"), user_session_path, data: {confirm: t("destroy_dialog_of_sender")} %> </li>
+                  <% else %>
+                    <li> <%= link_to t("log_in"), user_session_path %> </li>
+                  <% end %>
                 <% end %>
               </ul>
           </div>
@@ -30,11 +34,7 @@
       </div>
     </div>
 
-
-
-
 <%= yield %>
-
 
 </body>
 </html>
