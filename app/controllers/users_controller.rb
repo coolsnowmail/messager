@@ -5,26 +5,28 @@ class UsersController < ApplicationController
   end
 
   def show
-    @vk_user_id = @user.vk_user_id
     sender_ids = current_user.messages.pluck(:sender_id).uniq
     @senders = Sender.find(sender_ids)
     unless params[:sender_id] == nil
       @users_and_senders_messages = @user.messages.for_sender(params[:sender_id])
-      #@users_and_senders_messages = Message.where(user_id: @user.id, sender_id: params[:sender_id])
       @sender_message = @user.messages.build(sender_id: params[:sender_id])
     end
   end
 end
 
-
   def vk_for_user
       @user = current_user
-      return @url_vk = VkontakteApi.authorization_url(scope: [:notify, :offline]) if params[:vk_id] == nil && @user.vk_user_id == nil
-      return @user.update_attributes(vk_user_id: params[:vk_id]) if params[:vk_id]
+      @service_user_vk = @user.service_users.where(service_id: 1).first
+      return @url_vk = VkontakteApi.authorization_url(scope: [:notify, :offline]) if params[:vk_id] == nil && @user.service_users.empty?
+      if params[:vk_id]
+        @service_user_vk = @user.service_users.new(auth_date: params[:vk_id], service_id: 1)
+        return @service_user_vk.save until @user.service_users.where(auth_date: params[:vk_id]).present?
+      end
   end
 
   def destroy_sender_if_u_want_to_log_in
     if session[:sender_id]
       Sender.find(session[:sender_id]).destroy
+      session[:sender_id] = nil
     end
   end

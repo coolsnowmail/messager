@@ -1,11 +1,24 @@
 div.container
   div.row
-    div.col-lg-2.col-md-2.col-sm-2.col-xs-2
-      =@p
+    div.col-lg-3.col-md-3.col-sm-3.col-xs-3
+      div#sender_name_container
+        p.text-uppercase.text-left#sender_name_text_color = t('sender.name', sender: @sender.name)
+      p =t("add_contact")
+      = form_tag(controller: "senders", action: "invite_link") do
+        =text_field_tag(:link)
+        =submit_tag("+")
+
+      - if @sender.users.size > 1
+        p =t("ur_contacts")
+        - @sender.users.each do |user|
+          p
+           a href="http://localhost:3000/senders/#{@sender.id}?user_id=#{user.id}" = user.email
+
+      = link_to t("get_out_of_dialog"), @sender, method: :delete, data: {confirm: t("notice_that_dialog_will_be_destroy")}, :class => "btn btn-danger"
     div.col-lg-8.col-md-8.col-sm-8.col-xs-8
       h5.text-info.text-center = t("chat")
       div#border
-        - @sender.messages.each do |m|
+        - @sender.messages.where(user_id: @user.id).each do |m|
           div.sms_block_contaner
             div class="#{m.incoming ? "outcoming_block" : "incoming_block" }" = m.text
 
@@ -18,10 +31,8 @@ div.container
           =f.hidden_field :incoming, :value => false
 
           =f.submit t("send"), class: "btn btn-primary pull-right"
-    div.col-lg-2.col-md-2.col-sm-2.col-xs-2
-      div#sender_name_container
-        p.text-uppercase.text-left#sender_name_text_color = t('sender.name', sender: @sender.name)
-      = link_to t("get_out_of_dialog"), @sender, method: :delete, data: {confirm: t("notice_that_dialog_will_be_destroy")}, :class => "btn btn-danger"
+    div.col-lg-1.col-md-1.col-sm-1.col-xs-1
+
 
 
 

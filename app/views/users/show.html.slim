@@ -1,31 +1,40 @@
 div.container
   div.row
     div.col-lg-2.col-md-2.col-sm-2.col-xs-2
+      - if @service_user_vk
+        = link_to t("time_settings"), time_services_path, :class=>"btn btn-primary my_btn"
+        br
       - if @senders.any?
         div.btn-group
-          button type="button" data-toggle="dropdown" class="btn btn-primary dropdown-toggle"
+          button type="button" data-toggle="dropdown" class="btn btn-primary dropdown-toggle my_btn"
            span.button_of_sender = t("list_of_senders")
            span class="caret"
           ul.dropdown-menu
             - @senders.each do |sender|
               li.text-center = link_to sender.name, user_path(current_user, sender_id: sender.id)
       div.btn-group
-        button type="button" data-toggle="dropdown" class="btn btn-primary dropdown-toggle"
+        button type="button" data-toggle="dropdown" class="btn btn-primary dropdown-toggle my_btn"
          span.button_of_sender = t("vk")
          span class="caret"
         ul.dropdown-menu
-          - if @user.vk_user_id.nil?
+          - if @service_user_vk.nil?
             li.text-center = link_to t("Connect"), @url_vk, :class=>"btn btn-success"
           - else
-            li.text-center #{t("your_vk_id")}: #{@user.vk_user_id}
+            li.text-center #{t("your_vk_id")}: #{@service_user_vk.auth_date}
             li.text-center. = link_to t("Disconnect"), disconnect_vk_path, data: { confirm: t("confirm_of_vk_disconnection") }, :class=>"btn btn-danger"
     div.col-lg-10.col-md-10.col-sm-10.col-xs-10
       - if @users_and_senders_messages
+        = link_to t("senders_delete"), senders_delete_path(:sender_id => @users_and_senders_messages.first.sender.id), data: { confirm: t("confirm_of_dialog_delete") }, :class=>"btn btn-danger pull-right"
         h5.text-info.text-center = t("chat")
         div#border
           - @users_and_senders_messages.each do |message|
             div.sms_block_contaner
               div class="#{message.incoming ? "outcoming_block" : "incoming_block"}" = message.text
+
+          - @senders.each do |sender|
+            - if sender.id == @users_and_senders_messages.first.sender_id
+              - if sender.sender_out == true
+                p.text-center.text-warning.initialism = t("sender_is_out")
 
       - if @users_and_senders_messages
         div.well

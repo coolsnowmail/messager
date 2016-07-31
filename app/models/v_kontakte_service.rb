@@ -12,9 +12,9 @@ class VKontakteService
     link = URI::encode "https://api.vk.com/method/messages.send?access_token=d2780e8189c5c5b882d80704a0c1dc3129577c5d8e2e7077158fa93afed687d1d842d5a7f0036b544d6a3&message=#{message_text}&uid=#{vk_id}"
     open(link)
   end
-  def receive(vk_id)
-    user = User.find_by(vk_user_id: vk_id)
-    vk_messages = "https://api.vk.com/method/messages.getHistory?access_token=d2780e8189c5c5b882d80704a0c1dc3129577c5d8e2e7077158fa93afed687d1d842d5a7f0036b544d6a3&count=3&uid=#{vk_id}"
+  def receive(vk_id, user_id)
+    user = User.find(user_id)
+    vk_messages = "https://api.vk.com/method/messages.getHistory?access_token=d2780e8189c5c5b882d80704a0c1dc3129577c5d8e2e7077158fa93afed687d1d842d5a7f0036b544d6a3&count=30&uid=#{vk_id}"
     vk_messages = open(vk_messages).read
     vk_messages = JSON.parse(vk_messages)
     vk_messages = vk_messages["response"]
@@ -31,12 +31,12 @@ class VKontakteService
         messages_vk_id << vk_message_id["mid"]
       end
     end
-    open("https://new.vk.com/dev/messages.markAsRead?access_token=d2780e8189c5c5b882d80704a0c1dc3129577c5d8e2e7077158fa93afed687d1d842d5a7f0036b544d6a3&message_ids=#{messages_vk_id}")
+    open("https://api.vk.com/method/messages.markAsRead?message_ids=#{messages_vk_id.first}&access_token=d2780e8189c5c5b882d80704a0c1dc3129577c5d8e2e7077158fa93afed687d1d842d5a7f0036b544d6a3")
     messages.reverse!
     messages.each do |message|
       if message.include?("#")
         sender_name, text = message.split("#")
-        user.messages.create(sender_id: Sender.find_by(name: sender_name).id, text: text, incoming: true)
+        user.messages.create(sender_id: Sender.find_by(name: sender_name).id, text: text, incoming: true) if Sender.where(name: sender_name).present?
       end
     end
   end

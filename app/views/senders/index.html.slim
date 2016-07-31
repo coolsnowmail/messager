@@ -1,0 +1,11 @@
+div.center
+    h4.text-warning =flash[:notice] if flash[:notice]
+
+    = form_tag(controller: "senders", action: "invite_link") do
+      =label_tag(t("invite_link"))
+      br
+      =text_field_tag(:link)
+      span.btn
+        =submit_tag(t("start_chat"))
+
+

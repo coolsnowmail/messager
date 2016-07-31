@@ -7,8 +7,10 @@ class ServicesController < ApplicationController
 
   def disconnect_vk
     user = current_user
-    user.update_attributes(vk_user_id: nil)
+    user.service_users.where(service_id: 1).first.time_service.each do |time_service|
+      time_service.destroy
+    end
+    user.service_users.where(service_id: 1).first.destroy
     redirect_to user_path(user.id)
   end
 end
-
