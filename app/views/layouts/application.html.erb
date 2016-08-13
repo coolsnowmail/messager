@@ -14,7 +14,7 @@
         <div class="navbar navbar-inverse">
           <div class="container">
             <div class="navbar-header">
-              <a class="navbar-brand" href="#"> <%= t("Messager") %> </a>
+              <%= link_to t("Messager"), profile_path, :class=>"navbar-brand"%>
             </div>
               <ul class='nav navbar-nav navbar-right '>
                 <% if user_signed_in? %>

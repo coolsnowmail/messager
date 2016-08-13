@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    current_user.update_attributes(timezone: Time.zone.name) if current_user.timezone == nil
     sender_ids = current_user.messages.pluck(:sender_id).uniq
     @senders = Sender.find(sender_ids)
     unless params[:sender_id] == nil
@@ -12,7 +13,6 @@ class UsersController < ApplicationController
       @sender_message = @user.messages.build(sender_id: params[:sender_id])
     end
   end
-end
 
   def vk_for_user
       @user = current_user
@@ -30,3 +30,15 @@ end
       session[:sender_id] = nil
     end
   end
+
+  def user_time_edit
+
+  end
+
+  def user_time_update
+    user_timezone = params[:timezone].slice(12...params[:timezone].length)
+    current_user.update_attributes(timezone: user_timezone)
+    redirect_to user_path(current_user.id)
+  end
+
+end

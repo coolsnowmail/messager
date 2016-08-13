@@ -3,7 +3,8 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-
+  # devise :database_authenticatable, :authentication_keys => [:timezone]
+  # validates :timezone, presence: true
   has_one  :profile, dependent: :destroy
   has_many :messages, dependent: :destroy
   has_many :senders,-> { uniq }, through: :messages

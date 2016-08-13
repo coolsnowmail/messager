@@ -12,7 +12,7 @@ div.container
         p =t("ur_contacts")
         - @sender.users.each do |user|
           p
-           a href="http://localhost:3000/senders/#{@sender.id}?user_id=#{user.id}" = user.email
+           =link_to user.email, sender_path(@sender.id, user_id: user.id)
 
       = link_to t("get_out_of_dialog"), @sender, method: :delete, data: {confirm: t("notice_that_dialog_will_be_destroy")}, :class => "btn btn-danger"
     div.col-lg-8.col-md-8.col-sm-8.col-xs-8
@@ -32,7 +32,3 @@ div.container
 
           =f.submit t("send"), class: "btn btn-primary pull-right"
     div.col-lg-1.col-md-1.col-sm-1.col-xs-1
-
-
-
-

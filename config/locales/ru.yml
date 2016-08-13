@@ -1,4 +1,10 @@
 ru:
+  ur zone: "Текущий часовой пояс: "
+  ur time: "Текущее время: "
+  change time: "изменить часовой пояс"
+  time: "время:"
+  time zone: "Укажите ваш часовой пояс"
+  time format: "%H:%M"
   Monday: "Понедельник"
   Tuesday: "Вторник"
   Wednesday: "Среда"

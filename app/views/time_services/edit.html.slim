@@ -1,17 +1,20 @@
-div.center
-    h4.text-warning =flash[:notice] if flash[:notice]
-    = form_for @time_service do |f|
-      = f.hidden_field :service_user_id, :value => @service_user_id
+div.container
+  div.row
+    div.col-lg-2.col-md-2.col-sm-2.col-xs-2
+    div.col-lg-8.col-md-8.col-sm-8.col-xs-8
+        h4.text-warning =flash[:notice] if flash[:notice]
+        = form_for @time_service do |f|
+          = f.hidden_field :service_user_id, :value => @service_user_id
 
-      = f.label t("day_of_week")
-      = f.select(:week_day, { t("Monday") => 1, t("Tuesday") => 2, t("Wednesday") => 3, t("Thursday") => 4, t("Friday") => 5, t("Saturday") => 6, t("Sunday") => 0})
+          = f.label t("day_of_week")
+          = f.select(:week_day, { t("Monday") => 1, t("Tuesday") => 2, t("Wednesday") => 3, t("Thursday") => 4, t("Friday") => 5, t("Saturday") => 6, t("Sunday") => 0})
 
-      = f.label t("from")
-      = f.select(:from, ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'])
+          = f.label t("from")
+          =f.time_select :from, :minute_step => 15
 
-      = f.label t("till")
-      = f.select(:till, ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'])
+          = f.label t("till")
+          =f.time_select :till, :minute_step => 15
 
-
-      span.btn
-        = f.submit t("Edit")
+          span.btn
+            = f.submit t("Edit")
+    div.col-lg-2.col-md-2.col-sm-2.col-xs-2

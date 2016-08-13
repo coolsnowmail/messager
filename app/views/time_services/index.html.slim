@@ -3,12 +3,12 @@ div.container
     div.row
       div.col-md-2
         ul.nav.nav-pills.nav-stacked
-          - @services_of_user.each do |service_user|
+          - @user_services.each do |service_user|
             li
               a href="#service#{service_user.id}" data-toggle="tab" =service_user.service.name
       div.col-md-10
         div.tab-content
-          - @services_of_user.each do |service_user|
+          - @user_services.each do |service_user|
             div class="tab-pane" id="service#{service_user.id}"
               - if service_user.time_service.any?
 
@@ -16,7 +16,7 @@ div.container
                     thead
                       tr
                         th
-                        th colspan="2" =t("time section")
+                        th.text-center colspan="2" =t("time section")
                         th
                         th
                     -service_user.time_service.each do |time_service|
@@ -36,11 +36,11 @@ div.container
                             th =t("Saturday")
                           -if time_service.week_day == 0
                             th =t("Sunday")
-                          th.text-center #{t("from")}  #{time_service.from}
-                          th.text-center #{t("till")}  #{time_service.till}
+                          th.text-center #{t("from")}  #{time_service.from.strftime  '%H:%M'}
+                          th.text-center #{t("till")}  #{time_service.till.strftime  '%H:%M'}
                           th =link_to edit_time_service_path(time_service.id) do
                             i class="glyphicon glyphicon-edit"
                           th =link_to time_service_path(time_service.id), method: :delete, data: { confirm: t('Are you sure?') } do
                             i class="glyphicon glyphicon-remove"
-              = link_to t("back_to_user"), user_path(current_user.id), class: 'btn btn-primary btn-lg pull-right'
-              = link_to t("set new time"), new_time_service_path(service_user: service_user.id), class: 'btn btn-primary btn-lg pull-right'
+              = link_to t("back_to_user"), user_path(current_user.id), class: 'btn btn-primary pull-right'
+              = link_to t("set new time"), new_time_service_path(service_user: service_user.id), class: 'btn btn-primary pull-right'

@@ -10,44 +10,42 @@ class SendersController < ApplicationController
   end
 
   def show
-    @sender = Sender.find(session[:sender_id])
-    @user = User.find(params[:user_id])
+    @sender = Sender.find_by(id: session[:sender_id])
+    @user = User.find_by(id: params[:user_id])
     if @sender.messages.empty?
       @message = @sender.messages.build
     else
-      VKontakteService.new.receive(@user.service_users.where(service_id: 1).first.auth_date, @user.id) if @user.service_users.where(service_id: 1).first.auth_date
+      VKontakteService.new.receive(@user.services.where(name: "Vkontakte").first.service_users.first.auth_date, @user.id) if @user.services.where(name: "Vkontakte").exists? && @user.services.where(name: "Vkontakte").first.service_users.first.auth_date
       @message = @sender.messages.build
     end
   end
 
   def new
     if session[:sender_id]
-      sender = Sender.find(session[:sender_id])
-      user = User.find(params[:user_id])
-      if sender.users.ids.include?(user.id)
+      sender = Sender.find_by(id: session[:sender_id])
+      user = User.find_by(id: params[:user_id])
+        sender.users << user unless sender.users.ids.include?(user.id)
         redirect_to sender_path(session[:sender_id], user_id: user.id)
-      else
-        sender.users << user
-        redirect_to sender_path(session[:sender_id], user_id: user.id)
-      end
     end
-    @user = User.find(params[:user_id])
+    @user = User.find_by(id: params[:user_id])
+    render :file => '/public/404.html', status => 404, :layout => true if @user == nil
     @sender = Sender.new
   end
 
   def create
-    user = User.find(params[:user_id])
+    user = User.find_by(id: params[:user_id])
     @sender = user.senders.new(post_params)
     if user.senders.pluck(:name).include?(@sender.name)
       redirect_to new_sender_path(user_id: user.id), :notice => t("notice_that_this_sender_name_have_been_acupate")
     else
-      if @sender.name == ""
+      if @sender.name.blank?
         redirect_to new_sender_path(user_id: user.id), :notice => t("enter_ur_name")
       else
         @sender = user.senders.create(post_params)
-        #redirect_to sender_path(@sender.id, user_id: user.id)
-        session[:sender_id] = @sender.id
-        redirect_to sender_path(session[:sender_id], user_id: user.id)
+        if @sender.persisted?
+          session[:sender_id] = @sender.id
+          redirect_to sender_path(session[:sender_id], user_id: user.id)
+        end
       end
     end
 
@@ -76,21 +74,4 @@ class SendersController < ApplicationController
         redirect_to sender_path(session[:sender_id], user_id: user.id)
       end
     end
-    def what_service_to_send_a_message
-      current_user.service_users.each do |service_user|
-        service_user.time_service.each do |time_service|
-          if Time.now.wday == time_service.week_day
-            from = Time.strptime(time_service.from, '%H:%M')
-            till = Time.strptime(time_service.till, '%H:%M')
-            if Time.now > from && Time.now < till
-
-            end
-          end
-        end
-      end
-    end
 end
-
-
-
-

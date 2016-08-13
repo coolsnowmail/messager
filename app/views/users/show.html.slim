@@ -22,7 +22,7 @@ div.container
           - else
             li.text-center #{t("your_vk_id")}: #{@service_user_vk.auth_date}
             li.text-center. = link_to t("Disconnect"), disconnect_vk_path, data: { confirm: t("confirm_of_vk_disconnection") }, :class=>"btn btn-danger"
-    div.col-lg-10.col-md-10.col-sm-10.col-xs-10
+    div.col-lg-9.col-md-9.col-sm-9.col-xs-9
       - if @users_and_senders_messages
         = link_to t("senders_delete"), senders_delete_path(:sender_id => @users_and_senders_messages.first.sender.id), data: { confirm: t("confirm_of_dialog_delete") }, :class=>"btn btn-danger pull-right"
         h5.text-info.text-center = t("chat")
@@ -45,3 +45,9 @@ div.container
             = f.hidden_field :incoming, :value => true
 
             = f.submit t("send"), class: "btn btn-primary pull-right"
+
+    div.col-lg-1.col-md-1.col-sm-1.col-xs-1
+      h6 =t("time")
+      - user_time = Time.zone.now.in_time_zone(current_user.timezone).strftime '%H:%M'
+      h4
+        = link_to user_time, user_time_edit_user_path(current_user.id)

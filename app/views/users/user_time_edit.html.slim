@@ -1,0 +1,16 @@
+div.center
+  h3
+    = t("ur time")
+    = Time.zone.now.in_time_zone(current_user.timezone).strftime '%H:%M'
+  h3
+    = t("ur zone")
+    = current_user.timezone
+  br
+  br
+  = form_tag(user_time_update_path) do
+    = label_tag t("time zone")
+    br
+    = select_tag "timezone", options_for_select( ActiveSupport::TimeZone.all)
+
+    span.btn
+      = submit_tag t("change time")
