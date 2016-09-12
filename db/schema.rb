@@ -22,9 +22,9 @@ ActiveRecord::Schema.define(version: 20160810200616) do
     t.integer  "sender_id"
     t.integer  "service_id"
     t.integer  "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean  "incoming"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "incoming",   default: false
   end
 
   add_index "messages", ["sender_id"], name: "index_messages_on_sender_id", using: :btree
@@ -45,9 +45,12 @@ ActiveRecord::Schema.define(version: 20160810200616) do
   create_table "senders", force: :cascade do |t|
     t.string   "name"
     t.boolean  "sender_out"
+    t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "senders", ["user_id"], name: "index_senders_on_user_id", using: :btree
 
   create_table "service_users", force: :cascade do |t|
     t.jsonb    "auth_date"
@@ -90,7 +93,6 @@ ActiveRecord::Schema.define(version: 20160810200616) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
-    t.integer  "vk_user_id"
     t.integer  "user_time"
     t.string   "timezone"
   end

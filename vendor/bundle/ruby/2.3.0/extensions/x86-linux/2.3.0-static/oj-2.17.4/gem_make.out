@@ -1,0 +1,66 @@
+current directory: /home/andrey/messager/vendor/bundle/ruby/2.3.0/gems/oj-2.17.4/ext/oj
+/home/andrey/.rbenv/versions/2.3.1/bin/ruby -r ./siteconf20160915-7489-6wcyue.rb extconf.rb
+>>>>> Creating Makefile for ruby version 2.3.1 on i686-linux <<<<<
+creating Makefile
+
+current directory: /home/andrey/messager/vendor/bundle/ruby/2.3.0/gems/oj-2.17.4/ext/oj
+make "DESTDIR=" clean
+
+current directory: /home/andrey/messager/vendor/bundle/ruby/2.3.0/gems/oj-2.17.4/ext/oj
+make "DESTDIR="
+compiling object.c
+compiling oj.c
+oj.c: In function ‘oj_parse_options’:
+oj.c:402:26: warning: format ‘%lu’ expects argument of type ‘long unsigned int’, but argument 3 has type ‘unsigned int’ [-Wformat=]
+   rb_raise(rb_eArgError, "indent string is limited to %lu characters.", sizeof(copts->dump_opts.indent_str));
+                          ^
+oj.c:548:26: warning: format ‘%lu’ expects argument of type ‘long unsigned int’, but argument 3 has type ‘unsigned int’ [-Wformat=]
+   rb_raise(rb_eArgError, "space string is limited to %lu characters.", sizeof(copts->dump_opts.after_sep));
+                          ^
+oj.c:561:26: warning: format ‘%lu’ expects argument of type ‘long unsigned int’, but argument 3 has type ‘unsigned int’ [-Wformat=]
+   rb_raise(rb_eArgError, "sapce_before string is limited to %lu characters.", sizeof(copts->dump_opts.before_sep));
+                          ^
+oj.c:574:26: warning: format ‘%lu’ expects argument of type ‘long unsigned int’, but argument 3 has type ‘unsigned int’ [-Wformat=]
+   rb_raise(rb_eArgError, "object_nl string is limited to %lu characters.", sizeof(copts->dump_opts.hash_nl));
+                          ^
+oj.c:587:26: warning: format ‘%lu’ expects argument of type ‘long unsigned int’, but argument 3 has type ‘unsigned int’ [-Wformat=]
+   rb_raise(rb_eArgError, "array_nl string is limited to %lu characters.", sizeof(copts->dump_opts.array_nl));
+                          ^
+oj.c: In function ‘mimic_generate_core’:
+oj.c:1721:26: warning: format ‘%lu’ expects argument of type ‘long unsigned int’, but argument 3 has type ‘unsigned int’ [-Wformat=]
+   rb_raise(rb_eArgError, "indent string is limited to %lu characters.", sizeof(copts->dump_opts.indent_str));
+                          ^
+oj.c:1730:26: warning: format ‘%lu’ expects argument of type ‘long unsigned int’, but argument 3 has type ‘unsigned int’ [-Wformat=]
+   rb_raise(rb_eArgError, "space string is limited to %lu characters.", sizeof(copts->dump_opts.after_sep));
+                          ^
+oj.c:1739:26: warning: format ‘%lu’ expects argument of type ‘long unsigned int’, but argument 3 has type ‘unsigned int’ [-Wformat=]
+   rb_raise(rb_eArgError, "space_before string is limited to %lu characters.", sizeof(copts->dump_opts.before_sep));
+                          ^
+oj.c:1748:26: warning: format ‘%lu’ expects argument of type ‘long unsigned int’, but argument 3 has type ‘unsigned int’ [-Wformat=]
+   rb_raise(rb_eArgError, "object_nl string is limited to %lu characters.", sizeof(copts->dump_opts.hash_nl));
+                          ^
+oj.c:1757:26: warning: format ‘%lu’ expects argument of type ‘long unsigned int’, but argument 3 has type ‘unsigned int’ [-Wformat=]
+   rb_raise(rb_eArgError, "array_nl string is limited to %lu characters.", sizeof(copts->dump_opts.array_nl));
+                          ^
+compiling fast.c
+compiling circarray.c
+compiling hash.c
+compiling sparse.c
+compiling resolve.c
+compiling strict.c
+compiling val_stack.c
+compiling odd.c
+compiling err.c
+compiling saj.c
+compiling dump.c
+compiling hash_test.c
+compiling cache8.c
+compiling compat.c
+compiling reader.c
+compiling scp.c
+compiling parse.c
+linking shared-object oj/oj.so
+
+current directory: /home/andrey/messager/vendor/bundle/ruby/2.3.0/gems/oj-2.17.4/ext/oj
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 oj.so ./.gem.20160915-7489-oth07g/oj

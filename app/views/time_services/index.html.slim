@@ -10,8 +10,7 @@ div.container
         div.tab-content
           - @user_services.each do |service_user|
             div class="tab-pane" id="service#{service_user.id}"
-              - if service_user.time_service.any?
-
+              - if service_user.time_services.any?
                   table.table.table-hover
                     thead
                       tr
@@ -19,7 +18,7 @@ div.container
                         th.text-center colspan="2" =t("time section")
                         th
                         th
-                    -service_user.time_service.each do |time_service|
+                    -service_user.time_services.each do |time_service|
                       tbody
                         tr
                           -if time_service.week_day == 1
@@ -36,8 +35,8 @@ div.container
                             th =t("Saturday")
                           -if time_service.week_day == 0
                             th =t("Sunday")
-                          th.text-center #{t("from")}  #{time_service.from.strftime  '%H:%M'}
-                          th.text-center #{t("till")}  #{time_service.till.strftime  '%H:%M'}
+                          th.text-center #{t("from")}  #{I18n.l time_service.from, format: :default}
+                          th.text-center #{t("till")}  #{I18n.l time_service.till, format: :default}
                           th =link_to edit_time_service_path(time_service.id) do
                             i class="glyphicon glyphicon-edit"
                           th =link_to time_service_path(time_service.id), method: :delete, data: { confirm: t('Are you sure?') } do

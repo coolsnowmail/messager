@@ -1,29 +1,26 @@
 class MessagesController < ApplicationController
   def create
     if user_signed_in?
-      @message =  Message.create(post_params)
-      @user = current_user
-      return redirect_to user_path(@user, sender_id: @message.sender_id)
+      @message = current_user.messages.create(post_params.slice(:sender_id, :text))
+      redirect_to user_path(@message.user_id, sender_id: @message.sender_id)
     else
-      @message =  Message.new(post_params)
-      @message =  Message.create(post_params) if @message.text != ""
-      user = User.find_by(id: @message.user_id)
-      redirect_to sender_path(@message.sender_id, user_id: @message.user_id)
-      user.service_users.each do |service_user|
-        service_user.time_service.each do |time_service|
-          if Time.zone.now.in_time_zone(user.timezone).wday == time_service.week_day
-            from = Time.zone.now.in_time_zone(user.timezone).beginning_of_day + time_service.from.hour * 3600 + time_service.from.min * 60
-            till = Time.zone.now.in_time_zone(user.timezone).beginning_of_day + time_service.till.hour * 3600 + time_service.till.min * 60
-            if Time.zone.now.in_time_zone(user.timezone) > from && Time.zone.now.in_time_zone(user.timezone) < till
-              VKontakteService.new.send(@message, User.find_by(id: @message.user_id).services.where(name: "Vkontakte").first.service_users.first.auth_date)
-            end
-          end
-        end
+      @message = Message.new(post_params.merge(incoming: true))
+      @message.save if @message.valid?
+      User.find_by(id: @message.user_id).services.each do |service|
+        auth_date = ServiceUser.find_by(user_id: @message.user_id, service_id: service.id).auth_date
+        eval(service.name).new.receive(auth_date, @message.user_id)
+        eval(service.name).new.send(@message, auth_date)
       end
+      redirect_to sender_path(@message.sender_id, user_id: @message.user_id)
     end
   end
-   private
+
+  private
    def post_params
      params.require(:message).permit(:text, :sender_id, :user_id, :incoming)
+   end
+
+  def user_post_params
+     params.require(:message).permit(:text, :sender_id)
    end
 end

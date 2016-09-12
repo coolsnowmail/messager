@@ -14,13 +14,12 @@ div.container
           p
            =link_to user.email, sender_path(@sender.id, user_id: user.id)
 
-      = link_to t("get_out_of_dialog"), @sender, method: :delete, data: {confirm: t("notice_that_dialog_will_be_destroy")}, :class => "btn btn-danger"
     div.col-lg-8.col-md-8.col-sm-8.col-xs-8
       h5.text-info.text-center = t("chat")
       div#border
         - @sender.messages.where(user_id: @user.id).each do |m|
           div.sms_block_contaner
-            div class="#{m.incoming ? "outcoming_block" : "incoming_block" }" = m.text
+            div class="#{m.incoming ? "incoming_block" : "outcoming_block" }" = m.text
 
       div.well = form_for @message do |f|
           h5 #{t("adress")} #{@user.email}
@@ -28,7 +27,6 @@ div.container
           h5 = t("message")
           =f.text_field :text, class: "form-control"
           =f.hidden_field :sender_id
-          =f.hidden_field :incoming, :value => false
 
           =f.submit t("send"), class: "btn btn-primary pull-right"
     div.col-lg-1.col-md-1.col-sm-1.col-xs-1

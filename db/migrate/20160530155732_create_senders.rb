@@ -3,7 +3,7 @@ class CreateSenders < ActiveRecord::Migration
     create_table :senders do |t|
       t.string :name
       t.boolean :sender_out
-      #t.belongs_to :user, index: true
+      t.belongs_to :user, index: true
 
       t.timestamps null: false
     end

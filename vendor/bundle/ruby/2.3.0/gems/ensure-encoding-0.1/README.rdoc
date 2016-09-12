@@ -1,0 +1,95 @@
+= Ensure Encoding
+
+Experimental project to find the best way to ensure a preferred encoding in
+Strings coming from untrusted sources.
+
+== Algorithms
+
+The most sane way of dealing with character data is choosing an internal
+representation for your application and convert all incoming and outgoing data
+when necessary.
+
+To ensure that our internal encoding is always at least valid we can choose to
+do one of two things.
+
+1. Throw an exception when we receive invalid character data. (ie. Our internal
+   encoding is UTF-8 and we receive Latin-1 data or invalid UTF-8)
+2. Accept whatever we get and try to mold it in such a way that it becomes
+   usable in our application.
+
+It is generally accepted to go for the second option, most of the times the
+end-user has no way of solving these problems because a vendor made a mistake.
+It's not very nice to shut them out.
+
+There are a number of techniques when molding the character data to our needs.
+Sniffing encoding, transcoding, dropping invalid characters are just a few
+examples. We implement a number of these techniques so you can easily protect
+your application from bad data.
+
+== Ensure encoding
+
+We've crammed at lot of functionality into the ensure_encoding method because
+we want to keep the number of new methods on String to a minimum. We'll walk
+through an example to show how it works.
+
+  example = 'Café'
+  example.encoding => #<Encoding:ISO-8859-1>
+  
+After ensuring the encoding of a string you can at least assume that you can
+concatenate the string to another string with the same encoding. In other
+words, it contains data valid for the specified encoding.
+
+  example.ensure_encoding('UTF-8')
+  example.encoding => #<Encoding:UTF-8>
+
+Beyond this you can specify a number of options to perform more operations
+to make sure the data in the string didn't become unreadable garbage. Let's
+look at a number of situations.
+
+=== Untrusted source with known encoding
+
+For instance, when you're excepting data from browsers you can be pretty sure
+the character data is properly encoded. When someone does send bad data it's
+probably a hacker and you can discard the request.
+
+  example.ensure_encoding('UTF-8',
+    :external_encoding  => 'UTF-8,
+    :invalid_characters => :raise
+  )
+
+=== Friendly source with known encoding
+
+In this scenario you're connecting to web API through a ReST library and you
+know the encoding of the source data because it's in the headers. However
+you're not sure the encoding of the strings is valid.
+
+  example.ensure_encoding(Encoding::UTF_8
+    :external_encoding  => Encoding::UTF_8,
+    :invalid_characters => :drop
+  )
+
+=== Untrusted source with variable encoding
+
+Assume we have a legacy database and some of the fields contain Shift JIS,
+while some of the newer fields contain UTF-8 because someone screwed up the
+server configuration. You're not even sure the encoding property on the
+strings you got make any sense because your database adapter is confused too.
+
+  example.ensure_encoding('UTF-8',
+    :external_encoding  => [Encoding::Shift_JIS, Encoding::UTF_8],
+    :invalid_characters => :transcode
+  )
+
+=== Untrusted source with unknown encoding
+
+As a last resort you're trying to read some random files from disk and you
+have no idea what the external encoding is. You've just read them as binary
+and are hoping to make some sense from the data.
+
+  example.ensure_encoding('UTF-8',
+    :external_encoding  => :sniff,
+    :invalid_characters => :transcode
+  )
+
+Note that the encoding sniffer is currently very naive and might not always be
+of any help.
