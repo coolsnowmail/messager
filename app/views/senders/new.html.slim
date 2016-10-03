@@ -1,8 +1,13 @@
-= form_for @sender do |f|
-  div.center
-    = f.label :name 
+div.center
+  h4.text-warning =flash[:notice] if flash[:notice]
+  = form_for @sender do |f|
+    -if @user
+      = hidden_field_tag "user_id", @user.id
+
+    = f.label t("name")
     br
     = f.text_field :name
 
     span.btn
-      = f.submit "start chat"
+      = f.submit t("start_chat")
+

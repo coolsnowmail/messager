@@ -1,0 +1,8 @@
+div.container
+  div.row
+    div.col-lg-12.col-md-12.col-sm-12.col-xs-12
+      div = @service.name
+      - if @auth_date.present?
+        div.text-center. = link_to t("Disconnect"), disconnect_user_service_path, data: { confirm: t("confirm_of_vk_disconnection") }, :class=>"btn btn-danger"
+      - else
+        div.text-center = link_to t("Connect"), connect_user_service_path, :class=>"btn btn-success"

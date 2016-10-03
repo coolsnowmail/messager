@@ -1,0 +1,2 @@
+module DeleteSendersHelper
+end

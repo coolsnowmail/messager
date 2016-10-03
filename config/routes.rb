@@ -1,67 +1,36 @@
 Rails.application.routes.draw do
+  resources :time_services
   devise_for :users
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
+  authenticated :user do
+    root to: "users#show", :as => "profile"
+  end
+  unauthenticated do
+    root to: "senders#index", :as => "unauthenticated"
+  end
+  # get 'callbacks', to: 'services#callbacks'
 
-  # You can have the root of your site routed with "root"
-  root 'users#index'
+  get "connect_vkontakteservice", to: "v_kontakte_service#connect_vkontakteservice"
+  get "disconnect_vkontakteservice", to: "v_kontakte_service#disconnect_vkontakteservice"
+  get "callbacks", to: "v_kontakte_service#callbacks"
 
-  # Example of regular route:
-    # get 'users' => 'devise/registrations#new'
+  get "connect_test", to: "test#connect_test"
+  get "disconnect_test", to: "test#disconnect_test"
 
-  # Example of named route that can be invoked with purchase_url(id: product.id)
-  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
-
-  # Example resource route (maps HTTP verbs to controller actions automatically):
-    resources :services
-
-    resources :senders
-
-    resources :users
-
-    resources :messages
-
-    #resources :messages, path: '/senders/:id/messages' 
-
-    
-
-  # Example resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
-
-  # Example resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
-
-  # Example resource route with more complex sub-resources:
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', on: :collection
-  #     end
-  #   end
-
-  # Example resource route with concerns:
-  #   concern :toggleable do
-  #     post 'toggle'
-  #   end
-  #   resources :posts, concerns: :toggleable
-  #   resources :photos, concerns: :toggleable
-
-  # Example resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
+  get 'disconnect_vk', to: 'services#disconnect_vk'
+  post 'user_time_update', to: 'users#user_time_update'
+  resources :senders
+  resources :users do
+    resources :services, only: [:show] do
+      member do
+      get "connect"
+      get "disconnect"
+    end
+    end
+    member do
+      get "user_time_edit"
+    end
+  end
+  get 'senders_delete', to: 'delete_senders#senders_delete'
+  post 'invite_link', to: 'senders#invite_link'
+  resources :messages
 end

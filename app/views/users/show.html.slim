@@ -1,14 +1,55 @@
 div.container
   div.row
-  	div.col-lg-2.col-md-2.col-sm-2.col-xs-2
-      h5.text-center = link_to t("services"), services_path
-      h5.text-center = t("contacts") 
-  	div.col-lg-10.col-md-10.col-sm-10.col-xs-10
-      h5.text-info.text-center = t("chat")
-      div.well#border 
+    div.col-lg-2.col-md-2.col-sm-2.col-xs-2
+      - if @user.service_users.any?
+        = link_to t("time_settings"), time_services_path, :class=>"btn btn-primary my_btn"
+        br
+      - if @senders.any?
+        div.btn-group
+          button type="button" data-toggle="dropdown" class="btn btn-primary dropdown-toggle my_btn"
+           span.button_of_sender = t("list_of_senders")
+           span class="caret"
+          ul.dropdown-menu
+            - @senders.each do |sender|
+              li.text-center = link_to sender.name, user_path(current_user, sender_id: sender.id)
 
-        = form_for @message do |f|
-          =f.text_field :text
-          =f.submit "create"
-        
-        
+      - if @user_services.empty?
+        h5 = t("u have no connected services now")
+      - else
+        h4 = t("my services")
+        - @user_services.each do |user_service|
+          h5.text-center = link_to user_service.name, user_service_path(current_user.id, user_service.id)
+
+      - unless @user_services_to_connect.empty?
+        h4 = t("Connect")
+        - @user_services_to_connect.each do |user_service_to_connect|
+          h5.text-center = link_to user_service_to_connect.name, user_service_path(current_user.id, user_service_to_connect.id)
+
+    div.col-lg-9.col-md-9.col-sm-9.col-xs-9
+      h4.text-warning.text-center =flash[:notice] if flash[:notice]
+      - if @users_and_senders_messages
+        = link_to t("senders_delete"), senders_delete_path(:sender_id => @users_and_senders_messages.first.sender.id), data: { confirm: t("confirm_of_dialog_delete") }, :class=>"btn btn-danger pull-right"
+        h5.text-info.text-center = t("chat")
+        div#border
+          - @users_and_senders_messages.each do |message|
+            div.sms_block_contaner
+              div class="#{message.incoming ? "incoming_block" : "outcoming_block"}" = message.text
+
+          - @senders.each do |sender|
+            - if sender.id == @users_and_senders_messages.first.sender_id
+              - if sender.sender_out == true
+                p.text-center.text-warning.initialism = t("sender_is_out")
+
+      - if @users_and_senders_messages
+        div.well
+          = form_for @sender_message do |f|
+            = f.text_field :text, class: "form-control"
+            = f.hidden_field :sender_id
+
+            = f.submit t("send"), class: "btn btn-primary pull-right"
+
+    div.col-lg-1.col-md-1.col-sm-1.col-xs-1
+      h6 =t("user time")
+      - user_time = I18n.l Time.zone.now.in_time_zone(current_user.timezone), format: :default
+      h4
+        = link_to user_time, user_time_edit_user_path(current_user.id)

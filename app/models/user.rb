@@ -3,18 +3,11 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-
+  # devise :database_authenticatable, :authentication_keys => [:timezone]
+  # validates :timezone, presence: true
   has_one  :profile, dependent: :destroy
   has_many :messages, dependent: :destroy
-  has_many :service_users
+  has_many :senders,-> { uniq }, through: :messages
+  has_many :service_users, dependent: :destroy
   has_many :services, through: :service_users
-
-  # def test3
-  #   puts "test"  	
-  # end
-
-  # def self.test2
-  # 	puts "test2"  	
-  # end
-
 end

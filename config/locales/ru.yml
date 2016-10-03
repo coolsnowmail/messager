@@ -1,50 +1,84 @@
 ru:
-  
+  the user not been found: "Адресат не был найден!!!"
+  You may have mistyped the address or the page may have moved: "Возможно вы ввели пригласительную ссылку неправильно"
+  Please check your invite link: "Пожалуйста проверте свою пригласительную ссылку"
+  user could not be found: "Пользователь не найден"
+  your message has not been sent: "ваше сообщение не было отправленно"
+  the sender is not found: "этот адсент не был найден"
+  the sender have destried: "этот адресант удален"
+  dont have any user: "у вас нет пригласительной ссылки! кому вы собрались писать сообщения?"
+  u have no connected services now: "У вас нет подключенных сервисов"
+  my services: "Мои сервисы"
+  ur zone: "Текущий часовой пояс: "
+  ur time: "Текущее время: "
+  change time: "изменить часовой пояс"
+  user time: "время:"
+  time zone: "Укажите ваш часовой пояс"
+  time format: "%H:%M"
+  Monday: "Понедельник"
+  Tuesday: "Вторник"
+  Wednesday: "Среда"
+  Thursday: "Четверг"
+  Friday: "Пятница"
+  Saturday: "Суббота"
+  Sunday: "Воскресенье"
+  save: "сохранить"
+  day_of_week: "день недели"
+  back_to_user: "вернуться на страницу"
+  set new time: "новое время"
+  from: "с"
+  till: "до"
+  Are you sure?: "Вы уверены?"
+  Destroy: "удалить"
+  Edit: "изменить"
+  time section: "Отрезок времени, когда вы хотите получать сообщения"
+  time_settings: "Настройка получения сообщений"
+  add_contact: "Добавить контакт"
+  ur_contacts: "Ваши контакты:"
+  invite_link: "Для начала диалога с пользователем введите пригласительную ссылку"
+  sender_is_out: "Адресант удалился"
+  enter_ur_name: "Вы забыли ввести имя"
+  confirm_of_dialog_delete: "Этот диалог будет удален! Продолжить?"
+  senders_delete: "Удалить диалог"
+  your_vk_id: "ваш id"
+  confirm_of_vk_disconnection: "Вы хотите утключить вашу страницу Вконтакте от приложения! Вы уверены?"
+  Disconnect: "Отключить"
+  Connect: "Подключить"
+  notice_that_dialog_will_be_destroy: "Вы точно хотите выйти из беседы? Все сообщения будут удалены, а Ваше имя забыто!"
+  get_out_of_dialog: "Выйти из диалогов"
+  Messager: "Messager"
+  notice_that_this_sender_name_have_been_acupate: "Данное имя уже занято для этого пользователя"
+  vk: "Вконтакте"
+  destroy_dialog_of_sender: 'Если вы войдете в систему то потеряйте этот диалог. Продолжить?'
+  list_of_senders: "Адресанты"
+  adress: "Адресат:"
+  message: "Сообщение:"
+  send: "отправить"
+  name: "Имя:"
+  start_chat: "Начать диалог"
   back: "Назад"
-
   сancel_my_account: "Удалить аккаунт"
-
   update_user_button: "Внести изменения"
-
   edit: "Редактировать"
-
   characters_minimum: "символов минимум"
-
   remember_me: "Запомнить пользователя"
-
   exit: "Выход"
-
   sign_up: "Регистрация"
-
   log_in: "Войти"
-
   chat: "Диалог"
-
   sender:
     name: "Имя: %{sender}"
-
   service1: "Сервис 1"
-  
   service1_settings: "Настройка сервиса 1"
-
   service2: "Сервис 2"
-  
   service2_settings: "Настройка сервиса 2"
-
   service3: "Сервис 3"
-  
   service3_settings: "Настройка сервиса 3"
-
   resend_confirmation_instructions: "Выслать инструкции для подтверждения еще раз"
-
   do_u_forgot_ur_password: "Забыли пароль?"
-
   send_reset_password_instructions: "Сменить пароль"
-
   contacts: "Список контактов"
-
   services: "Список сервисов"
-
   activerecord:
     models:
       user: "Пользователь"
@@ -54,5 +88,8 @@ ru:
         password: "Пароль"
         password_confirmation: "Подтверждение пароля"
         current_password: "Текущий пароль"
+  time:
+    formats:
+      default: "%H:%M"
 
 
