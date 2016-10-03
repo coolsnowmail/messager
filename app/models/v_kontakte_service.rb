@@ -30,15 +30,15 @@ class VKontakteService
     vk_messages = JSON.parse(vk_messages)
     vk_messages = vk_messages["response"]
     vk_messages.delete_at(0)
-    messages = Array.new
-    messages_vk_id = Array.new
+    messages = []
+    messages_vk_id = []
     vk_messages.each do |vk_message|
-      if vk_message["read_state"] == 0 && vk_message["out"] == 0
+      if vk_message["read_state"].zero? && vk_message["out"].zero?
         messages << vk_message["body"]
       end
     end
     vk_messages.each do |vk_message_id|
-      if vk_message_id["read_state"] == 0 && vk_message_id["out"] == 0
+      if vk_message_id["read_state"].zero? && vk_message_id["out"].zero?
         messages_vk_id << vk_message_id["mid"]
       end
     end

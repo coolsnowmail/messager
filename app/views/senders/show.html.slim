@@ -3,18 +3,19 @@ div.container
     div.col-lg-3.col-md-3.col-sm-3.col-xs-3
       div#sender_name_container
         p.text-uppercase.text-left#sender_name_text_color = t('sender.name', sender: @sender.name)
-      p =t("add_contact")
+      p = t("add_contact")
       = form_tag(controller: "senders", action: "invite_link") do
-        =text_field_tag(:link)
-        =submit_tag("+")
+        = text_field_tag(:link)
+        = submit_tag("+")
 
       - if @sender.users.size > 1
-        p =t("ur_contacts")
+        p = t("ur_contacts")
         - @sender.users.each do |user|
           p
-           =link_to user.email, sender_path(@sender.id, user_id: user.id)
+           = link_to user.email, sender_path(@sender.id, user_id: user.id)
 
     div.col-lg-8.col-md-8.col-sm-8.col-xs-8
+      h4.text-warning = flash[:notice] if flash[:notice]
       h5.text-info.text-center = t("chat")
       div#border
         - @sender.messages.where(user_id: @user.id).each do |m|
@@ -23,10 +24,10 @@ div.container
 
       div.well = form_for @message do |f|
           h5 #{t("adress")} #{@user.email}
-          =f.hidden_field :user_id, :value => @user.id
+          = f.hidden_field :user_id, :value => @user.id
           h5 = t("message")
-          =f.text_field :text, class: "form-control"
-          =f.hidden_field :sender_id
+          = f.text_field :text, class: "form-control"
+          = f.hidden_field :sender_id
 
-          =f.submit t("send"), class: "btn btn-primary pull-right"
+          = f.submit t("send"), class: "btn btn-primary pull-right"
     div.col-lg-1.col-md-1.col-sm-1.col-xs-1

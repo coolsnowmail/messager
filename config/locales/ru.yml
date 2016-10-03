@@ -1,4 +1,12 @@
 ru:
+  the user not been found: "Адресат не был найден!!!"
+  You may have mistyped the address or the page may have moved: "Возможно вы ввели пригласительную ссылку неправильно"
+  Please check your invite link: "Пожалуйста проверте свою пригласительную ссылку"
+  user could not be found: "Пользователь не найден"
+  your message has not been sent: "ваше сообщение не было отправленно"
+  the sender is not found: "этот адсент не был найден"
+  the sender have destried: "этот адресант удален"
+  dont have any user: "у вас нет пригласительной ссылки! кому вы собрались писать сообщения?"
   u have no connected services now: "У вас нет подключенных сервисов"
   my services: "Мои сервисы"
   ur zone: "Текущий часовой пояс: "

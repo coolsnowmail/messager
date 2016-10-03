@@ -7,13 +7,15 @@ class SendersController < ApplicationController
 
   def show
     @sender = Sender.find_by(id: session[:sender_id])
+    return render :file => '/public/404.html', status => 404, :layout => true unless @sender
     @user = User.find_by(id: params[:user_id])
+    return render :file => '/public/user_not_found.html', status => 404, :layout => true unless @user
     if @sender.messages.empty?
       @message = @sender.messages.build
     else
       @user.services.each do |service|
       auth_date = ServiceUser.find_by(user_id: @user.id, service_id: service.id).auth_date
-      eval(service.name).new.receive(auth_date, @user.id)
+      service.name.constantize.new.receive(auth_date, @user.id)
       end
       @message = @sender.messages.build
     end
@@ -27,7 +29,8 @@ class SendersController < ApplicationController
       redirect_to sender_path(session[:sender_id], user_id: user.id)
     end
     @user = User.find_by(id: params[:user_id])
-    render :file => '/public/404.html', status => 404, :layout => true if @user == nil
+    flash[:notice] = t("dont have any user") if @user.nil?
+    flash[:notice] = nil if @user
     @sender = Sender.new
   end
 
